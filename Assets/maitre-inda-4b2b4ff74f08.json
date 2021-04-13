@@ -1,12 +1,1 @@
-{
-  "type": "service_account",
-  "project_id": "maitre-inda",
-  "private_key_id": "4b2b4ff74f087655aea918c9a2d5f7b9b30822d3",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC0qfORVJylFPQD\nM6XIpgcsgBHWmRx8Fl1sphLvOc/xpg6xkTZ/3VMilDbzuCD151ypAlWCE8gJ+TQm\nSlTIW7yCBh/GoPyDA8WKxvM5KfqSdmLWFGu/Ye1x8xE5TCqHpwV7tzF23nP6zghy\nWZB2S1Wmsswi2pUeaX1qttO+jdYGZ5SnfRbPYs6ixUGXO9uao7+x+asViZ37xr7X\nJz8R0KkeJ7LjATCK2wqn6uu7zMZOFRwsHKT/jCwA8r31EDeJLoalURbbdXwQ2Q9W\n8s9ok7zFPmGqhPdRuUG14ENx5bBgsTFf18IDABHiCo/pZcaUAzODPtmSnO3j9f9L\nRth/V/eFAgMBAAECggEAWR7ROSrdDw5UBNRQfrdwKIKQyiTDiW7a7ULLallBe/on\nm25/zPmYDiHBLd7x23wjGHg/SCiL8GePUygtxJyEVDvDJw+5IMQWiYv05YkQw3lE\n7kgqksEzCZgXMgWhoUNCEDJhYzr/SYSjZA1Mlx44hUAENVlQYC03ohHISGLdZlCR\nE4tmzJxNnVwG86jhJtOtQFwSaz3QZaKub5TLymHZR1Npzdy0/qYx/hhpv0h3uMHr\nI5kwjsJWjBh2KzP1N2UGauw3ySgyiQ3MMYr4IRXtMH4kIthjUg7vpBBbb9MIsTRF\n+u8hGyhpgxo8xUReQPEpkBFH/prhjDAtH/2Rui0iTQKBgQD/VoO5aW0lYAQ7LV2k\nzhFcrutPz3ww8Flp5oa5kBIigvzce0vUay3XgqX4mJjftTUGE+gmS5C3GwSw9Bja\n4DPB6KYUestoqrEuy/hEH8fM4JUrk9qA7muq8BFZx6UN/veY6C8gV6WLMxZuvjdI\nB8duRFDH+tA03Nlh+2/R5yWN5wKBgQC1Id7bzXZweq+R7Po3NpRNbPLjgqzgovjt\nkZILG5jqSrWBvMYVxa4pKG79o9Sf0a2fOXv5i2R0ZVcCc3G7g5gQluxI1Y8FOQh0\nRvsBhjZ2sidTXRj5Ep5aXqUZQRsShduWryCnOdYpX+eEKbEbd8zb1/lF5WknOu7l\n5G9FT85pswKBgEvVXfnLHedjxN3uc0lnCjEEok5pyPCf8W5KUOj7qOcnEAJLfBHy\nYwMGglR6vaxzHPRZJTF6b9hx5crINDmNLNICTpD2h0Lmrwi++1UAO07VxHfUyahR\nJxj1g7GuYY7ukoqPKq/oV/onihoJ1FFIPiq5j2RVUVDh5o37JxKoG7cxAoGBAI36\nMJ+F23KrF/eAE1k39OMDpRdkFHI4DHrbAeinByOOz9sTxwjF3I/yW52Az2c+iaMn\nAeBGvMTnsl3/c4SRz54hTrCAhQyI+fF6ucEmHIbJej3D2ZFSYMFhMnQrLjdEqSzh\ntOyfTxk7TVOxAlwPeYpRLdj1y4iujxewCPABcEA1AoGAZAkf4b6sVlIu91P6LxgK\nQKDfmOuX846k7PvwGOvSs79Ikp/8vZ2amLMyqzi4wwlESyT2oQJllK4556umu46m\n6uaCM6u64tRRWhPXfuv8Z7I3FfY7Cekol+2JBRpwedtEk+xPxxYCk5VE8edt9rub\neOW0F9autynxEoG776kF9Yw=\n-----END PRIVATE KEY-----\n",
-  "client_email": "dialogflowflutter@maitre-inda.iam.gserviceaccount.com",
-  "client_id": "101235588761605863772",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflowflutter%40maitre-inda.iam.gserviceaccount.com"
-}
+
