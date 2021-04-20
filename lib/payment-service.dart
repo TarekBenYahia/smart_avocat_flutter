@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
@@ -34,10 +35,10 @@ class StripeService {
     var paymentMethod = await StripePayment.createPaymentMethod(
           PaymentMethodRequest(card: card,token: token)
       );
-      var paymentIntent = await StripeService.createPaymentIntent(
+      var paymentIntent = await (StripeService.createPaymentIntent(
           amount,
           currency
-      );
+      ) as FutureOr<Map<String, dynamic>>);
       var response = await StripePayment.confirmPaymentIntent(
           PaymentIntent(
               clientSecret: paymentIntent['client_secret'],
@@ -73,10 +74,10 @@ class StripeService {
 
       );
       print(jsonEncode(paymentMethod));
-      var paymentIntent = await StripeService.createPaymentIntent(
+      var paymentIntent = await (StripeService.createPaymentIntent(
           amount,
           currency
-      );
+      ) as FutureOr<Map<String, dynamic>>);
       var response = await StripePayment.confirmPaymentIntent(
           PaymentIntent(
               clientSecret: paymentIntent['client_secret'],

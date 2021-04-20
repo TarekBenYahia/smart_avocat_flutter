@@ -28,7 +28,7 @@ class ResetPswd  extends StatelessWidget {
                   ),
                   Center(
                     child: Text(
-                      "Mot de passe oublié?",style: TextStyle(
+                      "Mot de passe oublié",style: TextStyle(
                         fontSize: 30
                     ),
                     ),
@@ -68,7 +68,7 @@ class ResetPswd  extends StatelessWidget {
 
                       child: Text("Réinitialiser "),
                       onPressed: (){
-                        if(!_globalKey.currentState.validate())
+                        if(_globalKey.currentState.validate())
                           return;
                         _globalKey.currentState.save();
 
@@ -82,9 +82,9 @@ class ResetPswd  extends StatelessWidget {
                           "email" : email
                         };
                         http.post(Uri.parse(resetUrl),headers: headers, body: json.encode (ResetObject)).then((http.Response response) async {
-                          var message = response.statusCode == 200 ? "email sent " : "Erreur!";
+                          var message = response.statusCode == 200 ? "email sent " : "Erreur";
                           var role = response.body;
-                          if ( message == "Erreur!")
+                          if ( message == "Erreur")
                             showDialog(context: context,
                               builder: (BuildContext context) {
                                 return CupertinoAlertDialog(
@@ -92,7 +92,7 @@ class ResetPswd  extends StatelessWidget {
                                   content: Column(
                                       children:  [
                                         SizedBox(height: 10,),
-                                        Text("Email inexistant!"),
+                                        Text("Email inexistant"),
                                         SizedBox(height: 20,),
                                         Image.asset("Assets/erreur.png")
                                       ]

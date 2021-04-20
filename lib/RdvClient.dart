@@ -9,11 +9,19 @@ import 'Login.dart';
 
 class RdvClient extends StatefulWidget {
   String fetchRdvC = BaseUrl +"api/rendezvous/getMyRdvList/";
- // String getNomAvocat ="http://10.0.2.2:3000/api/rendezvous/getNomAvocat/";
+
 
   RdvClient();
   @override
   _RdvClientState createState() => _RdvClientState();
+}
+
+Future<String> fetchNomAvocat(String name) async{
+  http.Response responsedd = await http.get(Uri.parse(BaseUrl +"api/rendezvous/getNomAvocat/"+name));
+  Map<String, dynamic> avocatO = json.decode(responsedd.body);
+  String NomAv = avocatO["prenom"]+" "+avocatO["nom"];
+  print(NomAv);
+  return NomAv;
 }
 
 
@@ -53,7 +61,7 @@ class _RdvClientState extends State<RdvClient> {
   List<RdvView> listRdv = [];
   Future<bool> fetchedRdv;
   Future<bool> fetchRdv() async{
-    String token = await getStringValuesSF();
+    String token = await (getStringValuesSF());
     http.Response response= await http.get(Uri.parse(widget.fetchRdvC+token));
     List<dynamic> RdvFromServer = json.decode(response.body);
     for (var item in RdvFromServer) {
@@ -61,12 +69,12 @@ class _RdvClientState extends State<RdvClient> {
       http.Response responsedd = await http.get(Uri.parse(widget.getNomAvocat+item["avocatid"]));
       Map<String, dynamic> avocatO = json.decode(responsedd.body);
       NomAvocat = avocatO["prenom"]+" "+avocatO["nom"];*/
-
-
+      String names = await fetchNomAvocat(item["avocatid"]);
       DateFormat dateFormat = DateFormat("yyyy-MM-dd");
       DateTime dateTime = dateFormat.parse(item["date"]);
       String stringD = dateFormat.format(dateTime);
-      listRdv.add(RdvView(item["sujet"], stringD, item ["etat"]));
+      print(names);
+      listRdv.add(RdvView(names,item["sujet"], stringD, item ["etat"]));
     }
     return true;
   }
@@ -99,9 +107,9 @@ class _RdvClientState extends State<RdvClient> {
 }
 
 class RdvView extends StatelessWidget{
-  String sujet,date,etat,nom;
+  String id,sujet,date,etat,nom;
 
-  RdvView(this.sujet,this.date,this.etat);
+  RdvView(this.id,this.sujet,this.date,this.etat);
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -135,7 +143,7 @@ class RdvView extends StatelessWidget{
                       SizedBox(
                         height: 30,
                       ),
-                      Text("Maitre Houssem Ferjani"),
+                      Text(this.id),
                       Text(this.date),
                       Text(this.sujet),
                     ],

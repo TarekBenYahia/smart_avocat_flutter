@@ -133,7 +133,7 @@ class _LoginState extends State <Login> {
                     else {
                       SharedPreferences pref = await SharedPreferences.getInstance();
                       Map json = jsonDecode(role);
-                      String user = jsonEncode(User.fromJson(json));
+                      String user = jsonEncode(User.fromJson(json as Map<String, dynamic>));
                       pref.setString('userData', user);
                       print("Shared ="+ user);
                       if (role.contains("Client")) {

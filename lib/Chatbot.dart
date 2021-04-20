@@ -17,7 +17,7 @@ class _ChatbotState extends State<Chatbot> {
 
   void response(querry) async
   {
-    AuthGoogle authGoogle = await AuthGoogle(fileJson: "Assets/maitre-inda-4b2b4ff74f08.json").build();
+    AuthGoogle authGoogle = await AuthGoogle(fileJson: "Assets/maitre-inda-40ff209ce511.json").build();
     Dialogflow dialogflow =  Dialogflow(authGoogle: authGoogle,language: Language.french);
     AIResponse aiResponse = await dialogflow.detectIntent(querry);
     setState(() {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -62,7 +64,7 @@ class _RdvAvocatState extends State<RdvAvocat> {
   List<RdvAvocatView> listRdv = [];
   Future<bool> fetchedRdv;
   Future<bool> fetchRdv() async{
-    String token = await getStringValuesSF();
+    String token = await (getStringValuesSF() as FutureOr<String>);
     http.Response response= await http.get(Uri.parse(widget.fetchRdvC+token));
     List<dynamic> RdvFromServer = json.decode(response.body);
     for (var item in RdvFromServer) {
@@ -76,7 +78,8 @@ class _RdvAvocatState extends State<RdvAvocat> {
       DateFormat dateFormat = DateFormat("yyyy-MM-dd");
       DateTime dateTime = dateFormat.parse(item["date"]);
       String stringD = dateFormat.format(dateTime);
-      listRdv.add(RdvAvocatView("Tarek Ben Yahia",item["sujet"], stringD, item ["etat"]));
+      String names = await fetchNom(item["userid"]);
+      listRdv.add(RdvAvocatView(names,item["sujet"], stringD, item ["etat"]));
     }
     return true;
   }
@@ -131,7 +134,7 @@ class RdvAvocatView extends StatelessWidget{
                       content: Column(
                           children:  [
                             SizedBox(height: 10,),
-                            Text("Etes Vous sur de vouloir Accepter ce Rendez-vous?"),
+                            Text("Etes Vous sur de vouloir Accepter ce Rendez-vous"),
                             SizedBox(height: 20,),
                             Image.asset("Assets/exclamation.png")
                           ]
@@ -163,6 +166,10 @@ class RdvAvocatView extends StatelessWidget{
             ),
             child: Row (
               children: [
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset("Assets/"+this.etat+".png",width: 50,),
+                ),
 
                 Container(
                   child: Column(
@@ -177,10 +184,8 @@ class RdvAvocatView extends StatelessWidget{
                   ),
                   margin: EdgeInsets.fromLTRB(50, 0, 0, 0),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(left: 90),
-                  child:  Image.asset("Assets/"+this.etat+".png",width: 50,),
-                )
+
+
 
 
 

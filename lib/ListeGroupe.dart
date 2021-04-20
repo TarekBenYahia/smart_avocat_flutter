@@ -88,8 +88,6 @@ class GroupeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new WillPopScope(
-
-
       child:Material(
         child:  SizedBox(
           height: 130,

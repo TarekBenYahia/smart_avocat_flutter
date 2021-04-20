@@ -189,7 +189,7 @@ class PostView extends StatelessWidget {
             },
 
             child:  Card (
-              color: Colors.white70,
+              color: Colors.white24,
               semanticContainer: true,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
@@ -222,8 +222,6 @@ class PostView extends StatelessWidget {
                                  Text(this.date,style: TextStyle(fontSize: 12,color: Colors.black45),),
                                ],
                              ),
-
-
                            ],
                          ),
                     ),

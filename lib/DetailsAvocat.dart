@@ -8,7 +8,6 @@ class DetailsAvocat extends StatefulWidget {
 
   //var
   String _id;
-
   String _nom;
   String _prenom;
   String _image;

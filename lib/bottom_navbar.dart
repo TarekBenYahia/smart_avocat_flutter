@@ -31,7 +31,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           body: ListTile(
             leading: IconButton(
-              icon: Icon(Icons.build, color: Colors.grey, size: 35,),
+              icon: Icon(Icons.build, color: Colors.grey, size: 35,), onPressed: () {  },
             ),
 
             title: Text("Changer la disposition"),

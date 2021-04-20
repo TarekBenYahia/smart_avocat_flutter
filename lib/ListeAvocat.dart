@@ -41,7 +41,7 @@ class _ListeAvocatState extends State<ListeAvocat> {
     return true;
   }
   @override
-  Future<void> initState() {
+  Future<void> initState() async {
     super.initState();
     fetchedAvocat = fetchAvocat();
 

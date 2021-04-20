@@ -207,7 +207,7 @@ class _DetailPostState extends State<DetailPost> {
                         ),
                       ),
                       trailing: IconButton(
-                        icon: Icon(Icons.send,
+                        icon: Icon(Icons.add_comment_rounded,
                           size: 30,
                           color: Colors.red,
                         ) ,
@@ -310,7 +310,7 @@ class PostView extends StatelessWidget {
             },
 
             child:  Card (
-              color: Colors.white70,
+              color: Colors.white24,
               semanticContainer: true,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),

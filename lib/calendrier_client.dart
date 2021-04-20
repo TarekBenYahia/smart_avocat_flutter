@@ -95,24 +95,34 @@ class CalendarExample extends State<OnlineJsonData> {
       DatePicker.showDateTimePicker(context,
       showTitleActions: true,
       minTime: DateTime(2018, 3, 5),
-      maxTime: DateTime(2019, 6, 7), onChanged: (date) {
+      maxTime: DateTime(2019, 6, 7),
+          onChanged: (date) {
       print('change $date');
-      }, onConfirm: (date) {
+      },
+          onConfirm: (date) {
+        dateChoisie = '${date.year} - ${date.month} - ${date.day} - ${date.hour}:${date.minute} ' ;
+        setState(() {
 
-            String newDate = DateFormat('yyyy-MM-dd – kk:mm').format(date);
+        });
+           /* String newDate = DateFormat('yyyy-MM-dd – kk:mm').format(date);
             changeText(newDate);
-            print("test"+dateChoisie);
-      }, currentTime: DateTime.now(), locale: LocaleType.fr);
+            print("test"+dateChoisie);*/
+      },
+          currentTime: DateTime.now(), locale: LocaleType.fr);
       },
       child: Column(
         children: [
           Text(dateChoisie,
             style: TextStyle(color: Colors.blue),
           ),
+          RaisedButton(
+
+          )
 
         ],
       ),),
           ],
+
         )
       );
     });
@@ -267,7 +277,7 @@ class CalendarExample extends State<OnlineJsonData> {
   }
 
   Future<List<Meeting>> getDataFromWeb() async {
-    String token = await getStringValuesSF();
+    String token = await (getStringValuesSF() as FutureOr<String>);
     var data = await http.get(
         BaseUrl+"api/event/getAllEvents/"+token);
     var jsonData = json.decode(data.body);
