@@ -55,6 +55,9 @@ dev_dependencies:
   stripe_payment: ^1.0.7
   progress_dialog: ^1.2.2
   image_picker: ^0.6.7+22
+  url_launcher: any
+  webview_flutter: any
+  pie_chart: ^5.0.0
 
 
 

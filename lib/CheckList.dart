@@ -78,32 +78,68 @@ class _CheckListState extends State<CheckList> {
 
 
               icon: Icon(Icons.check_box_outline_blank,color: Colors.green,size: 40,),
-              label: Text(
-
-                  "        Paiement                  "
+              label: Text("        Paiement                  "
               ),
 
               onPressed: null),
-          SizedBox(height: 250,),
+          SizedBox(
+            height: 20,
+          ),
+          FloatingActionButton.extended(
+              heroTag: "btn2",
+              backgroundColor: Colors.white,
+              elevation: 10,
+              splashColor: Colors.redAccent,
+
+
+              icon: Icon(Icons.check_box_outline_blank,color: Colors.green,size: 40,),
+              label: Text(
+
+                  "  Déposer mon Dossier      "
+              ),
+
+              onPressed: null),
+          SizedBox(height: 120
+            ,),
           Align(
             alignment: Alignment.bottomRight,
-            child: FloatingActionButton.extended(
-                backgroundColor: Colors.redAccent,
-                elevation: 10,
-                splashColor: Colors.redAccent,
-                icon: Icon(Icons.payment_sharp,color: Colors.white,size: 40,),
-                label: Text(
+            child: Column(children: [
+              FloatingActionButton.extended(
+                  backgroundColor: Colors.redAccent,
+                  elevation: 10,
+                  splashColor: Colors.redAccent,
+                  icon: Icon(Icons.folder,color: Colors.white,size: 40,),
+                  label: Text(
 
-                    "Payer"
-                ),
+                      "Dépot"
+                  ),
 
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PaymentClient()),
-                  );
-                }),
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PaymentClient()),
+                    );
+                  }),
+              SizedBox(height: 20,),
+              FloatingActionButton.extended(
+                  backgroundColor: Colors.redAccent,
+                  elevation: 10,
+                  splashColor: Colors.redAccent,
+                  icon: Icon(Icons.payment_sharp,color: Colors.white,size: 40,),
+                  label: Text(
+
+                      "Payer"
+                  ),
+
+                  onPressed: (){
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => PaymentClient()),
+                    );
+                  }),
+            ],)
           ),
 
 

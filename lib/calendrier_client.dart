@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:smart_avocat/tabbar_ui.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,6 +46,12 @@ List<String> views = <String>[
 ];
 
 class CalendarExample extends State<OnlineJsonData> {
+  String _idUser = "";
+  void updateName(String name) {
+    setState(() {
+      this._idUser = name;
+    });
+  }
   List<Color> _colorCollection;
   String _networkStatusMsg;
 
@@ -51,16 +59,26 @@ class CalendarExample extends State<OnlineJsonData> {
   CalendarController _controller;
   DateTime _jumpToTime = DateTime.now();
   String _text = '';
+  String _title = "Test";
+  final myController = TextEditingController();
+  void updateTitle(String name) {
+    setState(() {
+      this._title = name;
+    });
+  }
   Color headerColor, viewHeaderColor, calendarColor, defaultColor;
+  var FinalD;
+  var FinalE;
   //************************//
 
   @override
   void initState() {
     _initializeEventColor();
     super.initState();
+    getStringValuesSF().then(updateName);
 
     _controller = CalendarController();
-    _controller.view = CalendarView.week;
+    _controller.view = CalendarView.month;
     _text = DateFormat('MMMM yyyy').format(_jumpToTime).toString();
   }
 
@@ -75,55 +93,147 @@ class CalendarExample extends State<OnlineJsonData> {
     }
     return showDialog(context: context,builder: (context){
       return AlertDialog(
-        title: Text("Entrez un évènement", style: TextStyle(fontSize: 20),),
-        content:  Column(
-          children: [
-            TextFormField(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder() , labelText: "Titre de l'évènement"
-              ),
-              // ignore: missing_return
-              validator: (value){
-                if (value.isEmpty)
-                  return "Le champs Mot de Passe vide";
-              },
-              onSaved: (newValue){
-              },
-            ),
-      FlatButton(
-      onPressed: () {
-      DatePicker.showDateTimePicker(context,
-      showTitleActions: true,
-      minTime: DateTime(2018, 3, 5),
-      maxTime: DateTime(2019, 6, 7),
-          onChanged: (date) {
-      print('change $date');
-      },
-          onConfirm: (date) {
-        dateChoisie = '${date.year} - ${date.month} - ${date.day} - ${date.hour}:${date.minute} ' ;
-        setState(() {
+          title: Text("Entrez un évènement", style: TextStyle(fontSize: 20),),
+          content:  StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState){
+              return Column(
+                children: [
+                  TextField(
+                    controller: myController,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder() , labelText: "Titre de l'évènement"
+                    ),
+                    // ignore: missing_return
 
-        });
-           /* String newDate = DateFormat('yyyy-MM-dd – kk:mm').format(date);
-            changeText(newDate);
-            print("test"+dateChoisie);*/
-      },
-          currentTime: DateTime.now(), locale: LocaleType.fr);
-      },
-      child: Column(
-        children: [
-          Text(dateChoisie,
-            style: TextStyle(color: Colors.blue),
+
+                  ),
+                  SizedBox(height: 20,),
+                  Text("Date de début:"),
+                  FlatButton(
+                    onPressed: () {
+                      DatePicker.showDateTimePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(2021, 6, 8),
+                          maxTime: DateTime(2031, 7, 7),
+                          onConfirm: (date) {
+                            setState(() {
+                              dateChoisie = '${date.year} - ${date.month} - ${date.day} - ${date.hour}:${date.minute} ' ;
+                              changeText(dateChoisie);
+                            });
+                            FinalD = date;
+                            FinalE = date.add(const Duration(hours: 2));
+
+                            dateChoisie = '${date.year} - ${date.month} - ${date.day} - ${date.hour}:${date.minute} ' ;
+                            print(dateChoisie);
+                            print(_title);
+                          },
+                          currentTime: DateTime.now(), locale: LocaleType.fr);
+                    },
+                    child: Column(
+                      children: [
+                        SizedBox(height: 10,),
+                        Text(dateChoisie,
+                          style: TextStyle(color: Colors.blue),
+                        ),
+
+
+
+                      ],
+                    ),),
+                  SizedBox(height: 30,),
+                  RaisedButton(
+                    child: Text("Ajouter Evènement"),
+                    onPressed: (){
+                      if (myController.text=='' || dateChoisie=="Choisir une date"){
+                        return;
+                      }
+                      String addEvent =BaseUrl + "api/event/addevent";
+                      Map<String, String> headers = {
+                        "Content-Type" : "application/json; chartset=UTF-8"
+                      };
+                      Map ColorMap = {
+                        "primary": "#1e90ff",
+                        "secondary":"#D1E8FF"
+                      };
+                      Map ResizableM = {
+                        "beforeStart": true,
+                        "afterEnd": true
+                      };
+                      Map metaM = {
+                        "location": "Tunis",
+                        "note": "3"
+                      };
+
+                      Map<String, dynamic> eventObj = {
+                        "color" : ColorMap,
+                        "resizable" : ResizableM,
+                        "draggable" : true,
+                        "allDay" : false,
+                        "userid" : _idUser,
+                        "title" : myController.text,
+                        "start" : FinalD.toString(),
+                        "end" : FinalE.toString(),
+                        "meta" : metaM
+                      };
+                      http.post(Uri.parse(addEvent), headers: headers, body: json.encode(eventObj)).then((http.Response response){
+                        var message = response.statusCode != 400 ? "Evènement ajouté avec succès!" : "Erreur !";
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return CupertinoAlertDialog(
+                              title: Text(("Succès")),
+                              content: Column(
+                                  children:  [
+                                    SizedBox(height: 10,),
+                                    Text("Evènement ajouté avec succès!"),
+                                    SizedBox(height: 20,),
+                                    Image.asset("Assets/success.png")
+                                  ]
+                              ),
+                              actions: [
+                                CupertinoDialogAction(child: Text("OK"),
+                                  onPressed: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => TabBarWidget()));
+                                  },)
+                              ],
+
+                            );
+                          },);
+                        if ( message == "Erreur!")
+                          showDialog(context: context,
+                            builder: (BuildContext context) {
+                              return CupertinoAlertDialog(
+                                title: Text(("Erreur")),
+                                content: Column(
+                                    children:  [
+                                      SizedBox(height: 10,),
+                                      Text("Veuillez vérifier les paramètres"),
+                                      SizedBox(height: 20,),
+                                      Image.asset("Assets/erreur.png")
+                                    ]
+                                ),
+                                actions: [
+                                  CupertinoDialogAction(child: Text("Annuler"),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },)
+                                ],
+
+                              );
+
+                            },
+                          );
+                      });
+                    },
+
+                  ),
+                ],
+
+
+              );
+            },
           ),
-          RaisedButton(
-
-          )
-
-        ],
-      ),),
-          ],
-
-        )
       );
     });
   }
@@ -208,56 +318,56 @@ class CalendarExample extends State<OnlineJsonData> {
                         height: 390,
                         child: SfCalendar(
                           headerHeight: 0,
-                              viewHeaderStyle: ViewHeaderStyle(
-                                backgroundColor: viewHeaderColor
-                              ),
-                              backgroundColor: calendarColor,
-                              controller: _controller,
-                              initialDisplayDate: _jumpToTime,
-                              onTap: calendarTapped,
+                          viewHeaderStyle: ViewHeaderStyle(
+                              backgroundColor: viewHeaderColor
+                          ),
+                          backgroundColor: calendarColor,
+                          controller: _controller,
+                          initialDisplayDate: _jumpToTime,
+                          onTap: calendarTapped,
 
-                              dataSource: MeetingDataSource(snapshot.data),
+                          dataSource: MeetingDataSource(snapshot.data),
                           monthViewSettings: MonthViewSettings(
-                            navigationDirection: MonthNavigationDirection.vertical
+                              navigationDirection: MonthNavigationDirection.vertical
                           ),
                           onViewChanged:(ViewChangedDetails viewChangedDetails){
                             String headerText;
                             if (_controller.view == CalendarView.month) {
-                            headerText = DateFormat('MMMM yyyy')
-                           .format(viewChangedDetails.visibleDates[
-                            viewChangedDetails.visibleDates.length ~/ 2])
-                            .toString();
-                             }
+                              headerText = DateFormat('MMMM yyyy')
+                                  .format(viewChangedDetails.visibleDates[
+                              viewChangedDetails.visibleDates.length ~/ 2])
+                                  .toString();
+                            }
                             else {
-                            headerText = DateFormat('MMMM yyyy')
-                           .format(viewChangedDetails.visibleDates[0])
-                           .toString();
-                           }
-                           if (headerText != null && headerText != null){
-                             SchedulerBinding.instance.addPostFrameCallback((Duration duration) {
-                               _text = headerText;
-                               setState(() {
+                              headerText = DateFormat('MMMM yyyy')
+                                  .format(viewChangedDetails.visibleDates[0])
+                                  .toString();
+                            }
+                            if (headerText != null && headerText != null){
+                              SchedulerBinding.instance.addPostFrameCallback((Duration duration) {
+                                _text = headerText;
+                                setState(() {
 
-                               });
-                             });
-                           }
+                                });
+                              });
+                            }
                           } ,
 
 
 
-                            ),
+                        ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Padding(padding: EdgeInsets.only(left: 330),
-                      child: FloatingActionButton(
-                        backgroundColor: Colors.red[400],
-                        onPressed: (){
-                          createAlertDialog(context);
-                        },
-                        child: Icon(Icons.add),
-                      ),
+                        child: FloatingActionButton(
+                          backgroundColor: Colors.red[400],
+                          onPressed: (){
+                            createAlertDialog(context);
+                          },
+                          child: Icon(Icons.add),
+                        ),
                       )
                     ],
                   ),
@@ -385,4 +495,5 @@ class Meeting {
   DateTime to;
   Color background;
   bool allDay;
+
 }

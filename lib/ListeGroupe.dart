@@ -13,7 +13,7 @@ import 'main.dart';
 class ListeGroupe extends StatefulWidget{
   //var
   String fetchAllURL = BaseUrl +"api/group/getgroups";
-  String _baseImageURL = BaseUrl+"api/avocat/file/1613733269416.jpg";
+  String _baseImageURL = BaseUrl+"api/avocat/file/";
 
   //constructor
   ListeGroupe();
@@ -32,7 +32,7 @@ class _ListeGroupeState extends State<ListeGroupe> {
     http.Response response = await http.get(Uri.parse(widget.fetchAllURL));
     List<dynamic> GroupesFromServer = json.decode(response.body);
     for (var item in GroupesFromServer) {
-      groupes.add(GroupeView(item["_id"], item["nom"], item ["desc"],widget._baseImageURL,item["type"],item["cat"]));
+      groupes.add(GroupeView(item["_id"], item["nom"], item ["desc"],widget._baseImageURL+item["image"],item["type"],item["cat"]));
     }
     return true;
   }
@@ -118,10 +118,12 @@ class GroupeView extends StatelessWidget {
                   Container(
                     child: Column(
                       children: [
-                        SizedBox(height: 20,),
-                        Text(this.nom),
-                        Text(this.desc),
+                        SizedBox(height: 15,),
+                        Text(this.nom.toUpperCase(),style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.redAccent),),
+                        SizedBox(height: 3,),
                         Text(this.cat),
+                        SizedBox(height: 20,),
+                        Text(this.desc),
 
                       ],
                     ),

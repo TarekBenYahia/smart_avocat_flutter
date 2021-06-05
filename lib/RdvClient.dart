@@ -20,7 +20,7 @@ Future<String> fetchNomAvocat(String name) async{
   http.Response responsedd = await http.get(Uri.parse(BaseUrl +"api/rendezvous/getNomAvocat/"+name));
   Map<String, dynamic> avocatO = json.decode(responsedd.body);
   String NomAv = avocatO["prenom"]+" "+avocatO["nom"];
-  print(NomAv);
+ // print(NomAv);
   return NomAv;
 }
 
@@ -69,11 +69,12 @@ class _RdvClientState extends State<RdvClient> {
       http.Response responsedd = await http.get(Uri.parse(widget.getNomAvocat+item["avocatid"]));
       Map<String, dynamic> avocatO = json.decode(responsedd.body);
       NomAvocat = avocatO["prenom"]+" "+avocatO["nom"];*/
-      String names = await fetchNomAvocat(item["avocatid"]);
+
+     // String names = "tarek";
       DateFormat dateFormat = DateFormat("yyyy-MM-dd");
       DateTime dateTime = dateFormat.parse(item["date"]);
       String stringD = dateFormat.format(dateTime);
-      print(names);
+      String names = await fetchNomAvocat(item["avocatid"]);
       listRdv.add(RdvView(names,item["sujet"], stringD, item ["etat"]));
     }
     return true;

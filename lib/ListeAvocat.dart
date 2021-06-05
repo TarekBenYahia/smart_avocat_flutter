@@ -13,7 +13,7 @@ import 'main.dart';
 class ListeAvocat extends StatefulWidget{
   //var
   String fetchAllURL = BaseUrl +"api/avocat/getAll";
-  String _baseImageURL = BaseUrl+"api/avocat/file/1613733269416.jpg";
+  String _baseImageURL = BaseUrl+"api/avocat/file/";
 
   //constructor
 
@@ -36,12 +36,12 @@ class _ListeAvocatState extends State<ListeAvocat> {
     http.Response response = await http.get(Uri.parse(widget.fetchAllURL));
     List<dynamic> avocatsFromServer = json.decode(response.body);
     for (var item in avocatsFromServer) {
-      avocats.add(AvocatView(item["_id"], item["nom"], item ["prenom"],widget._baseImageURL));
+      avocats.add(AvocatView(item["_id"], item["nom"], item ["prenom"],widget._baseImageURL+item["image"]));
     }
     return true;
   }
   @override
-  Future<void> initState() async {
+  Future<void> initState() {
     super.initState();
     fetchedAvocat = fetchAvocat();
 

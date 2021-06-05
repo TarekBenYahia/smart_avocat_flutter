@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_avocat/ListeGroupe.dart';
 import 'package:smart_avocat/blog.dart';
 
+import 'creerGroupe.dart';
+
 class moreAvocat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,11 @@ class moreAvocat extends StatelessWidget {
                                    },),
                                  CupertinoDialogAction(child: Text("Créer"),
                                    onPressed: () {
-                                     Navigator.pop(context);
+                                    Navigator.push(context,MaterialPageRoute(
+                                        builder: (BuildContext context){
+                                          return CreationGroupe();
+                                        }
+                                    )) ;
                                    },)
                                ],
 
@@ -93,7 +99,30 @@ class moreAvocat extends StatelessWidget {
                           },
                         ));
                       }),
-                ),)
+                ),),
+                SizedBox(height: 20,),
+                Padding(padding: EdgeInsets.only(left: 30),
+                  child: Container(
+                    width: 350,
+                    child: FloatingActionButton.extended(
+                        heroTag: "btn5",
+                        backgroundColor: Colors.white,
+                        elevation: 20,
+                        splashColor: Colors.redAccent,
+
+                        icon: Icon(Icons.shopping_cart_rounded),
+                        label: Text(
+                            "Boutique"
+                        ),
+
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return Blog();
+                            },
+                          ));
+                        }),
+                  ),),
               ],
             ),
           )

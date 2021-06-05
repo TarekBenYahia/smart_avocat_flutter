@@ -39,3 +39,6 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+Assets/maitre-inda-4b2b4ff74f08.json
+Assets/maitre-inda-40ff209ce511.json

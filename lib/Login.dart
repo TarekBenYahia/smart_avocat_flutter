@@ -10,9 +10,10 @@ import 'ListeAvocat.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'User.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 //10.0.2.2
-String BaseUrl = "http://10.0.2.2:3000/";
-
+String BaseUrl = "http://10.0.2.2:3006/";
 class Login extends StatefulWidget{
   Login();
 
@@ -170,9 +171,12 @@ class _LoginState extends State <Login> {
                 SizedBox(
                   height: 30,
                 ),
+
                 new InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, "/choix");
+                    const url = 'http://192.168.1.22:4200/pages/auth/register-2';
+                    launchURL(url);
+                  //  Navigator.pushNamed(context, "/choix");
                   },
                   child: Align(
                     alignment: Alignment.bottomCenter,
@@ -192,4 +196,15 @@ class _LoginState extends State <Login> {
     );
   }
 
+}
+launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url,
+      forceWebView: true,
+    enableJavaScript: true,
+      enableDomStorage: true
+    );
+  } else {
+    throw 'Could not launch $url';
+  }
 }

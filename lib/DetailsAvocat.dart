@@ -29,7 +29,7 @@ class DetailsAvocat extends StatefulWidget {
 class _DetailAvocatState extends State <DetailsAvocat> {
   Future<bool> fetchedAvocat;
   String getByIdUrl = BaseUrl +"api/avocat/getAvocat/";
-  String _baseImageURL = BaseUrl +"api/avocat/file/1613733269416.jpg";
+  String _baseImageURL = BaseUrl +"api/avocat/file/";
 
   Future<bool> getAvocat() async {
     http.Response response = await http.get(Uri.parse(getByIdUrl + widget._id));
@@ -39,6 +39,7 @@ class _DetailAvocatState extends State <DetailsAvocat> {
     widget._domaine = avocatObject["domaine"];
     widget._sexe = avocatObject["sexe"];
     widget._descritpion = avocatObject["description"];
+    widget._image = avocatObject["image"];
     return true;
   }
 
@@ -87,7 +88,7 @@ class _DetailAvocatState extends State <DetailsAvocat> {
                     height: 250,
                     width: 250,
                     child: CircleAvatar(
-                          backgroundImage: NetworkImage(_baseImageURL),
+                          backgroundImage: NetworkImage(_baseImageURL+this.widget._image),
 
                     ),
                   ),

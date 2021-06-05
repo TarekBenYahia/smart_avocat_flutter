@@ -34,7 +34,7 @@ Future<String> fetchNom(String name) async{
       http.Response responsedd = await http.get(Uri.parse(BaseUrl +"api/rendezvous/getNomClient/"+name));
       Map<String, dynamic> avocatO = json.decode(responsedd.body);
      String NomCl = avocatO["prenom"]+" "+avocatO["nom"];
-     print(NomCl);
+  //   print(NomCl);
   return NomCl;
 }
 
